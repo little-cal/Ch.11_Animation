@@ -7,7 +7,7 @@
 CHAPTER 11 FINAL CODE QUESTIONS: (10pts)
 --------------------------------
 1.) Where is the ball's original location?
-(320, 240)
+initial values put in for pos_x and pos_y
 2.) What are the variables dx and dy?
 How many pixels the x and y position should move when updated
 3.) How many pixels/sec does the ball move in the x-direction?
