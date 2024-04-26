@@ -17,23 +17,23 @@ class Ball:
         arcade.draw_circle_filled(self.pos_x, self.pos_y, self.rad, self.col)
 
     def update_ball(self):
-        # self.pos_x, self.pos_y = arcade.rotate_point(self.pos_x, self.pos_y, 300, 300, 359)
-        self.pos_x += self.dx
-        self.pos_y += self.dy
-
-        if self.pos_x > 500 or self.pos_y > 500:
-            self.dx *= -1
-            self.dy *= -1
-        if self.pos_x < 100 or self.pos_y < 100:
-            self.dx *= -1
-            self.dy *= -1
+        self.pos_x, self.pos_y = arcade.rotate_point(self.pos_x, self.pos_y, 300, 300, 60)
+        # self.pos_x += self.dx
+        # self.pos_y += self.dy
+        #
+        # if self.pos_x > 500 or self.pos_y > 500:
+        #     self.dx *= -1
+        #     self.dy *= -1
+        # if self.pos_x < 100 or self.pos_y < 100:
+        #     self.dx *= -1
+        #     self.dy *= -1
 
 
 class MyGame(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
         arcade.set_background_color(arcade.color.ASH_GREY)
-        self.ball = Ball(300, 300, 3, 3, 15, arcade.color.BLUE)
+        self.ball = Ball(300, 400, 3, 3, 15, arcade.color.BLUE)
 
     def on_draw(self):
         arcade.start_render()

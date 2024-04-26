@@ -1,6 +1,5 @@
 import arcade
 import random
-import time
 
 SW = 600
 SH = 600
@@ -28,18 +27,7 @@ class Moon:
 
     def update_moon(self):
         # updating position of the moon
-        self.pos_x += self.dx
-        self.pos_y -= self.dy
-
-        # if x position is too large, resetting position to ~0, 150
-        if self.pos_x >= 750:
-            self.pos_x = 0 - self.rad
-            self.pos_y = 150
-            self.dy *= -1
-
-        # reverse movement after y pos is == 400
-        if self.pos_y == 400:
-            self.dy *= -1
+        self.pos_x, self.pos_y = arcade.rotate_point(self.pos_x, self.pos_y, 300, 0, -1.35)
 
 
 # creating the background class
@@ -71,13 +59,13 @@ class Background:
         self.col_3 += self.col_step_3
 
         # reversing color change after col 3 has hit 270 or greater
-        if self.col_3 >= 270:
+        if self.col_3 >= 263:
             self.col_step_1 *= -1
             self.col_step_2 *= -1
             self.col_step_3 *= -1
 
         # when col 3 is 0 or less than 0 multiply by -1 to make the color change positive again
-        if self.col_3 <= -15:
+        if self.col_3 <= 0:
             self.col_step_1 *= -1
             self.col_step_2 *= -1
             self.col_step_3 *= -1
@@ -101,7 +89,7 @@ class CloudPiece:
         # updating the cloud position and resetting it after it has gone off the screen
         self.pos_x += self.dx
 
-        if self.pos_x > 800:
+        if self.pos_x > 630:
             self.pos_x = -150
 
 
@@ -123,9 +111,10 @@ class Star:
 class MyGame(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        self.clock = 0
 
         # creating the moon object with its proper variables
-        self.moon = Moon(300, 400, 50, arcade.color.LAVENDER_GRAY, 3, 2, )
+        self.moon = Moon(300, 400, 50, arcade.color.LAVENDER_GRAY, 3, 2)
 
         # creating the background object
         self.background = Background(300, 300, 600, 600, 1, 1, 1, 1.3, 1.5, 2)
@@ -136,12 +125,12 @@ class MyGame(arcade.Window):
         self.piece_list = []
 
         # cloud creation loops
-        for i in range(5):
+        for i in range(3):
             # set variables for all pieces made in the j loop
             # randomized again in the next iteration
             x = random.randint(300, 600)
-            y = random.randint(300, 600)
-            dx = random.random() + random.randint(1, 3)
+            y = random.randint(350, 600)
+            dx = random.random() + random.randint(1, 2)
             for j in range(20):
                 # the loop that makes all the pieces of a cloud based off the variables in the i loop
                 x1 = x + random.randint(-40, 40)
@@ -154,7 +143,7 @@ class MyGame(arcade.Window):
             self.cloud_list.append(self.piece_list)
 
         # loop that creates all the stars in the animation
-        for i in range(300):
+        for i in range(100):
             x = random.randint(0, SW)
             y = random.randint(0, SH)
             rad = random.randint(1, 3)
@@ -179,6 +168,7 @@ class MyGame(arcade.Window):
                 piece.draw_cloud()
 
     def on_update(self, dt):
+        self.clock += dt
         # method responsible for updating the image, creating an animation
 
         # updates background, changes color
@@ -198,6 +188,7 @@ def main():
     # instantiating the MyGame class
     window = MyGame(SW, SH, "Caleb Little Ch. 11 Project")
     arcade.run()
+
 
 # if the namespace is == __main__, calls the main function
 if __name__ == "__main__":

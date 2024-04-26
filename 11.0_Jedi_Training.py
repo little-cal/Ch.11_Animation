@@ -1,5 +1,5 @@
 '''
-# 11.0 Jedi Training (50pts)  Name:________________
+# 11.0 Jedi Training (50pts)  Name: Caleb Little
 
 
 
@@ -197,7 +197,7 @@ class MyGame(arcade.Window):
         super().__init__(width, height, title)
         arcade.set_background_color(arcade.color.BLACK)
         self.flake_list = []
-        for i in range(500):
+        for i in range(300):
             x = random.randint(0, 600)
             y = random.randint(0, 600)
             dy = random.random() + random.randint(1, 3)

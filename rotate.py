@@ -60,7 +60,7 @@ class Ball3(Ball):
         self.col = col
 
     def update_ball(self):
-        self.pos_x, self.pos_y = arcade.rotate_point(self.pos_x, self.pos_y, 300, 300, 359)
+        self.pos_x, self.pos_y = arcade.rotate_point(self.pos_x, self.pos_y, 300, 300, 45)
         # self.pos_x += self.dx
         # self.pos_y += self.dy
 
